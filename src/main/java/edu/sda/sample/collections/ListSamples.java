@@ -1,6 +1,8 @@
 package edu.sda.sample.collections;
 
 import edu.sda.sample.model.Human;
+import edu.sda.sample.model.HumanByAgeAndName;
+import edu.sda.sample.model.HumanBySurnameAndNoOfChildren;
 
 import java.util.*;
 
@@ -68,6 +70,28 @@ public class ListSamples {
         linkedPeople.add(human3);
         linkedPeople.add(human2);
         System.out.println("Wypisujemy z wszystkimi dublami");
+        for (Human linkedPerson : linkedPeople) {
+            System.out.println(linkedPerson);
+        }
+        System.out.println("\n");
+
+        //sortowanie obiektów
+        Collections.sort(linkedPeople); // metoda nic nie zwraca ale kolekcja będzie już posortowana domyślnym komparatorem
+        System.out.println("Wypisujemy posortowane domyślnym komparatorem");
+        for (Human linkedPerson : linkedPeople) {
+            System.out.println(linkedPerson);
+        }
+        System.out.println("\n");
+
+        Collections.sort(linkedPeople, new HumanByAgeAndName()); // sortowanie po wieku i imieniu
+        System.out.println("Wypisujemy posortowane wiekiem i imieniem");
+        for (Human linkedPerson : linkedPeople) {
+            System.out.println(linkedPerson);
+        }
+        System.out.println("\n");
+
+        Collections.sort(linkedPeople, new HumanBySurnameAndNoOfChildren()); // sortowanie po nazwisku i liczbie dzieci
+        System.out.println("Wypisujemy posortowane nazwiskiem i liczbą dzieci");
         for (Human linkedPerson : linkedPeople) {
             System.out.println(linkedPerson);
         }

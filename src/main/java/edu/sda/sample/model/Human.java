@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @NoArgsConstructor
 //@ToString
-public class Human {
+public class Human implements Comparable<Human> {
     private String name;
     private String surname;
     private int age;
@@ -107,5 +107,23 @@ public class Human {
     @Override
     public int hashCode() {
         return Objects.hash(name, surname, identity, gender);
+    }
+
+
+    /**
+     * Interfejs Comparable możemy użyć raz dla danej klasy bo tylko raz dla danej klasy możemy
+     * zdefiniować metodę compareTo - to ma być najbardziej domyślny, naturalny sposób szeregowania
+     * obiektów danej klasy
+     */
+    @Override
+    public int compareTo(Human o) {
+        //ustawimy po nazwisku i imieniu rosnąco
+        //składamy nazwisko i imię w 1 ciąg
+        //to samo dla obiektu przychodzącego (o)
+        //porównujemy te 2 ciągi za pomocą wbudowanej w klasę String metody compareTo
+        return (surname+name).compareTo(o.getSurname()+o.getName());
+
+        //compareToIgnoreCase porówna bez zwracania uwagi na wielkość liter
+        //return (surname+name).compareToIgnoreCase(o.getSurname()+o.getName());
     }
 }
