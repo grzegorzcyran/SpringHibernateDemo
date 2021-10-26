@@ -68,6 +68,7 @@ public class SetSamples {
         orderedSet.add(human2);
         System.out.println("\nTeraz mamy TreeSet, zachowujemy kolejność określoną przez porównanie obiektów");
         orderedSet.forEach(System.out::println);
+        System.out.println("Wielkość seta:" + orderedSet.size());
 
 
     }
