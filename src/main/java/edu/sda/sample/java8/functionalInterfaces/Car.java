@@ -1,6 +1,6 @@
 package edu.sda.sample.java8.functionalInterfaces;
 
-public class Car {
+public class Car implements Comparable<Car> {
     private String name;
     private String engine;
     private int noOfSeats;
@@ -27,5 +27,10 @@ public class Car {
 
     public int getNoOfSeats() {
         return noOfSeats;
+    }
+
+    @Override
+    public int compareTo(Car o) {
+        return this.engine.compareTo(o.getEngine());
     }
 }

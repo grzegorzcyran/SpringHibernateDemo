@@ -4,9 +4,10 @@ import edu.sda.sample.java8.functionalInterfaces.Car;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Strumień - obiekt zawierający ciąg jednakowych obiektów
@@ -26,6 +27,8 @@ import java.util.stream.Collectors;
  *  - flatMap - spłaszczenie strumienia (szerzej przy przykładzie)
  *  - limit - ograniczająca ilość przetwarzanych elementów
  *  - distinct - wybierająca elementy niepowtarzalne
+ *  - peek - zasadniczo podobnie jak forEach ale w trakcie działania streama
+ *  - sorted - umożliwiająca sortowanie elementów (zakłada że klasa implementuje Comparable, albo że wykorzystamy zewnętrzny komparator)
  *
  * 3. Metody kończące strumien:
  *  - toArray() - generująca tabelę z elementów strumienia
@@ -62,6 +65,10 @@ public class StreamSamples {
                 this.fullName = fullName;
                 this.noOfSeats = noOfSeats;
             }
+
+            public String getFullName() {
+                return fullName;
+            }
         }
 
         Car familyCar = new Car("Ford SMax", "1.8", 7);
@@ -71,8 +78,8 @@ public class StreamSamples {
 
         List<Car> carList = new ArrayList<>();
         carList.add(familyCar);
-        carList.add(smallCar);
         carList.add(bigCar);
+        carList.add(smallCar);
         carList.add(sportCar);
 
         //Strumień:
@@ -113,18 +120,18 @@ public class StreamSamples {
                 .limit(2)
                 .forEach(each -> System.out.println(each.getName() + " " + each.getEngine() + " il.siedzeń:" + each.getNoOfSeats()));
 
-        System.out.println("Kolejność ma znaczenie 1 :");
+        System.out.println("\nKolejność ma znaczenie - zależy czy najpierw mamy limit czy filter to wynik będzie albo 1 albo 2 elementowy :");
         carList.stream()
                 .limit(2)
                 .filter(each -> each.getNoOfSeats() > 4)
                 .forEach(each -> System.out.println(each.getName() + " " + each.getEngine() + " il.siedzeń:" + each.getNoOfSeats()));
 
-        System.out.println("Lista samochodów przekształcona na listę CarDTO");
+        System.out.println("\nLista samochodów przekształcona na listę CarDTO");
         List<CarDTO> dtoList = carList.stream()
                 .map(each -> new CarDTO(each.getName() + " " + each.getEngine(), each.getNoOfSeats()))
                 .collect(Collectors.toList());
 
-        System.out.println("Lista samochodów przekształcana na set CarDTO");
+        System.out.println("\nLista samochodów przekształcana na set CarDTO");
         Set<CarDTO> dtoSet = carList.stream()
                 .map(each -> new CarDTO(each.getName() + " " + each.getEngine(), each.getNoOfSeats()))
                 .collect(Collectors.toSet());
@@ -139,5 +146,87 @@ public class StreamSamples {
                 .forEach(System.out::println);
 
         System.out.println("\nFlatmapa");
+        List<CarDTO> allCarDtos = Stream.of(dtoList, dtoSet)
+                .flatMap(it -> it.stream())
+                .peek(it -> System.out.println("Wyświetlamy w trakcie działania streama: " + it.getFullName()))
+                .collect(Collectors.toList());
+
+        System.out.println("Wielkość kolekcji po złączeniu: " + allCarDtos.size());
+
+        System.out.println("\nSortowanie wewnętrznym komparatorem:");
+        carList.stream()
+                .sorted()
+                .forEach(each -> System.out.println(each.getName() + " " + each.getEngine() + " il.siedzeń:" + each.getNoOfSeats()));
+
+        System.out.println("\nSortowanie po liczbie siedzeń");
+        carList.stream()
+                .sorted(new CarByNoOfSeatsComparator())
+                .forEach(each -> System.out.println(each.getName() + " " + each.getEngine() + " il.siedzeń:" + each.getNoOfSeats()));
+
+        System.out.println("\nIlość siedzeń razem");
+        int seatsTotal = carList.stream()
+                .map(Car::getNoOfSeats)
+                /**
+                 * reduce - należy podać sposób w jaki z n elementów strumienia zrobić 1
+                 *
+                 * W naszym przypadku ilość siedzeń: zaczynamy od wartości początkowej : 0 (identity)
+                 * current określa aktualną wartość do zwrócenia
+                 * next określa wartość "przychodzącą z kolejnego elementu strumienia
+                 *
+                 * czyli
+                 * zaczynamy od 0
+                 * to aktualna 0, przychodząca 2
+                 * przy kolejnym elemencie mamy już
+                 * zaczynamy od 2, aktualna to 2, przychodząca to 4, itd
+                 */
+                .reduce(0, (current, next) -> current + next);
+        System.out.println("Ilość siedzeń razem: " + seatsTotal);
+
+        System.out.println("\nŁączenie nazw samochodów");
+        System.out.println("1. Ordynarne");
+        String uglyConcat = carList.stream()
+                .map(Car::getName)
+                .collect(Collectors.joining());
+        System.out.println("Ordynarny wynik: " + uglyConcat);
+
+        System.out.println("\n2. Z przedzielaniem");
+        String niceConcat = carList.stream()
+                .map(Car::getName)
+                .collect(Collectors.joining(", "));
+        System.out.println("Z przedzelaniem wynik: " + niceConcat);
+
+        System.out.println("\n3. Z przedzielaniem i początkiem i końcem");
+        String withBracketsConcat = carList.stream()
+                .map(Car::getName)
+                .collect(Collectors.joining(", ", "{", "}"));
+        System.out.println("Z przedzelaniem i początkiem i końcem wynik: " + withBracketsConcat);
+
+        Map<Integer, Car> carsBySeats = carList.stream()
+                /**
+                 * Map potrzebuje K, V, więc przy toMop mówimy co ma być czym
+                 * w naszym przypadku pod klucz podstawiamy liczbę siedzeń, pod wartość podstawiamy aktualnie obrabiany obiekt Car
+                 */
+                //.collect(Collectors.toMap(x -> x.getNoOfSeats(), x -> x));
+                .collect(Collectors.toMap(Car::getNoOfSeats, x -> x));
+
+        System.out.println(carsBySeats.size());
+
+        Car familyCar2 = new Car("Ford Cmax", "1.8", 7);
+        Car bigCar2 = new Car("Ford Transit", "3.8", 3);
+        Car smallCar2 = new Car("Ford Ka", "1.2", 4);
+
+        carList.add(familyCar2);
+        carList.add(bigCar2);
+        carList.add(smallCar2);
+
+        Map<String, List<Car>> carsByEngineGrouped = carList.stream()
+                /**
+                 *  Mamy mapę gdzie kluczem jest wielkość silnika i jako wartość będzie lista
+                 *  wszystkich samochodów o danej wielkości silnika, stąd groupingBy i potem toList
+                 */
+                .collect(Collectors.groupingBy(Car::getEngine, Collectors.toList()));
+
+        System.out.println("\nSamochody zgrupowane po wielkości silnika: " + carsByEngineGrouped.size());
+
     }
 }
