@@ -2,10 +2,7 @@ package edu.sda.sample.java8.functionalInterfaces.streamExamples;
 
 import edu.sda.sample.java8.functionalInterfaces.Car;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -227,6 +224,19 @@ public class StreamSamples {
                 .collect(Collectors.groupingBy(Car::getEngine, Collectors.toList()));
 
         System.out.println("\nSamochody zgrupowane po wielkości silnika: " + carsByEngineGrouped.size());
+
+        System.out.println("\nNajwiększa ilość siedzeń");
+        Optional<Integer> possibleMaxSeats = carList.stream()
+                .map(Car::getNoOfSeats)
+                .max(Integer::compareTo);
+
+        if(possibleMaxSeats.isPresent()) {
+            System.out.println("Max ilość siedzeń: " + possibleMaxSeats.get());
+        }
+
+        //ifPresent działa tak, że jeśli w Optionalu coś jest to
+        //właśnie ta zawartość zostanie użyta bezpośrednio, nie trzeba robić metody .get()
+        possibleMaxSeats.ifPresent(it -> System.out.println("Max po nowemu:" + it));
 
     }
 }

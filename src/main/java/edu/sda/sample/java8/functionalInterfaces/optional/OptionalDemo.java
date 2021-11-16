@@ -2,6 +2,8 @@ package edu.sda.sample.java8.functionalInterfaces.optional;
 
 import edu.sda.sample.java8.functionalInterfaces.Car;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -41,5 +43,29 @@ public class OptionalDemo {
             System.out.println("obiekt nie jest nullem");
         }
 
+        List<Car> cars = new ArrayList<>();
+        cars.add(sportCar);
+        cars.add(familyCar);
+
+        System.out.println("\nSzukamy dowolnego forda, z metodą orElse");
+        Car findAnyFord = cars.stream()
+                .filter(it -> it.getName().contains("Ford"))
+                .findFirst()
+                .orElse(getDefaultCar());
+        System.out.println("Znaleziono : " + findAnyFord.getName());
+
+        System.out.println("\nSzukamy dowolnego forda, z metodą orElseGet");
+        Car findOtherFord = cars.stream()
+                .filter(it -> it.getName().contains("Ford"))
+                .findFirst()
+                .orElseGet(() -> getDefaultCar());
+        System.out.println("Znaleziono : " + findOtherFord.getName());
+
+    }
+
+    private static Car getDefaultCar() {
+        System.out.println("Dodajemy samochód zastępczy");
+
+        return new Car("Fiat Brava", "1.2");
     }
 }
