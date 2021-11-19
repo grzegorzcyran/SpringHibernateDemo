@@ -1,7 +1,6 @@
 package edu.sda.sample.threads.basics;
 
-import static edu.sda.sample.threads.ThreadColor.ANSI_GREEN;
-import static edu.sda.sample.threads.ThreadColor.ANSI_PURPLE;
+import static edu.sda.sample.threads.ThreadColor.*;
 
 public class MainThread {
 
@@ -36,6 +35,31 @@ public class MainThread {
                 System.out.println(ANSI_GREEN + "Anonymous class in action");
             }
         }.start();
+
+        runnableSample = new Thread(new RunnableSample() {
+
+            @Override
+            public void run() {
+                System.out.println(ANSI_RED + " Overwritten RunnableSample thread");
+                try {
+                    //join() powoduje przejście do wątku na którym metoda jest wywołana
+                    //czyli idziemy do otherThread i tamten kod wykonujemy ZANIM przejdziemy dalej w bieżącym wątku (runnableSample)
+                    otherThread.join();
+                    System.out.println(ANSI_RED + "OtherThread finished and time to continue");
+                } catch (InterruptedException e) {
+                    System.out.println(ANSI_RED + "runnableSample interrupted");
+                }
+            }
+        });
+
+        runnableSample.start();
+//        otherThread.interrupt();
+        /**
+         * interrupt na RunnableSample powoduje że nie czekamy juz na wykonanie kodu z OtherThread -
+         * OtherThread sobie wykona to co ma do wykonania (czyli sleep itd)
+         * ale RunnableSample w tym czasie już jest przerwany
+         */
+        //runnableSample.interrupt();
 
         System.out.println(ANSI_PURPLE + "END OF MAIN THREAD");
     }

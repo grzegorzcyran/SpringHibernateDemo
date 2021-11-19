@@ -13,6 +13,20 @@ public class OtherThread extends Thread {
         System.out.println(ANSI_BLUE + "Wątek ma nazwę: " +currentThread().getName());
         System.out.println(ANSI_BLUE + "Other thread in action!");
         otherMethod();
+
+        try {
+
+            /**
+             * sleep() może zostać przerwany przez otherThread.interrupt()
+             * co spowoduje rzucenie wyjątku InterruptException
+             * i przejście od sleep() bezpośrednio do kodu w klauzuli catch() {}
+             * czyli wszystko to co jest w try{} ale poniżej sleep() już się nie wykona
+             */
+            sleep(4000);
+            System.out.println(ANSI_BLUE + "Enough sleeping for OtherThread");
+        } catch (InterruptedException e) {
+            System.out.println(ANSI_BLUE + "Interrupted work of OtherThread");
+        }
     }
 
     private void otherMethod() {
