@@ -5,3 +5,6 @@ wszędzie "new" tylko żeby były do tworzenia obiektów dedykowane metody
 
 Singleton - ma za zadanie dostarczyć dokładnie jeden obiekt danej klasy i pilnować żeby nie można było
 utworzyć takich obiektów więcej
+
+Factory - służy do tworzenia obiektów "podobnych",
+z jednej rodziny (gdy kilka klas ma wspólnego przodka, bo rozszerzają tą samą nadklasę)
