@@ -1,0 +1,7 @@
+Wzorce projektowe - konwencja na napisanie kodu realizującego powtarzalne funkcjonalności / zadania
+
+Wzorce kreacyjne - służą do tworzenia obiektów, a właściwie do tego żeby nie wywoływać
+wszędzie "new" tylko żeby były do tworzenia obiektów dedykowane metody
+
+Singleton - ma za zadanie dostarczyć dokładnie jeden obiekt danej klasy i pilnować żeby nie można było
+utworzyć takich obiektów więcej
