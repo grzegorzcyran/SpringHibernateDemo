@@ -8,3 +8,5 @@ utworzyć takich obiektów więcej
 
 Factory - służy do tworzenia obiektów "podobnych",
 z jednej rodziny (gdy kilka klas ma wspólnego przodka, bo rozszerzają tą samą nadklasę)
+
+AbstractFactory - łatwiej rozszerzalne niż factory, używamy gdy będzie powstawać dużo nowych "typów" naszego obiektu
