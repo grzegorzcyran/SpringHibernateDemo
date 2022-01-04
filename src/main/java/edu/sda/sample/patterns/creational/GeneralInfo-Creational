@@ -12,3 +12,5 @@ z jednej rodziny (gdy kilka klas ma wspólnego przodka, bo rozszerzają tą sam�
 AbstractFactory - łatwiej rozszerzalne niż factory, używamy gdy będzie powstawać dużo nowych "typów" naszego obiektu
 
 Builder - tworzy obiekty gdzie w zależności od konfiguracji mamy różne parametry wypełnione bądź nie, część opcjonalną
+
+Prototype - mamy 1 obiekt "wzorcowy" i z niego tworzymy "kopie" na których działamy
