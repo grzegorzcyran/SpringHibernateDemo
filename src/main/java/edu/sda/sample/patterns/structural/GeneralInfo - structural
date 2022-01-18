@@ -1,3 +1,7 @@
 Wzorce strukturalne - dołożenie dodatkowych funkcjonalności do aplikacji bez zmiany klas bazowych
 
 proxy - zapewnia warstwę pośrednią - bezpieczeństwa lub "cache" (pamięć podręczna, "blisko miejsca zastosowania")
+
+flyweight (pyłek) - chodzi o to że tworzenie obiektów jest drogie (zajmuje czas, pamięć i moc obliczeniową).
+Jeśli mamy obiekt który możemy rozdzielić na "część typową" i "część specyficzną" to "część typowa" może być
+odkładana do "gotowców" i możemy z tego korzystać n razy, nie tworząc od nowa całości
