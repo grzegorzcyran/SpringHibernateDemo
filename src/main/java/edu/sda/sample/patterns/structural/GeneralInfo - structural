@@ -11,3 +11,9 @@ ale z dodatkowymi funkcjonalnościami, możliwościami
 
 adapter - potrzebny gdy mamy obiekty na których chcemy wykonać podobną akcję ale one różnią się wartościami (KMH / MPH)
 albo np. potrzebujemy przystosować dane do innego systemu (wartości prądu, waluty, szerokości torów)
+
+fasada - służy do tego zeby nie udostępniać poza własne moduły zbyt wielu "niskopoziomowych" funkcjonalności:
+klient ma wywołać 1 metodę do generowania raportu a nie łączyć się z bazą, tworzyć obiekty itp.
+bo klient może nawet nie wiedzieć że jest lepsze wyjście ale takie mu po prostu zadziałało,
+dlatego lepiej jest schować za uprawnieniami (private, proteted, package private) to z czego klient
+ma nie korzystać, a wystawić tylko API - metody dedykowane do wykorzystania przez klienta
