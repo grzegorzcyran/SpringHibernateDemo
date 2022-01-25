@@ -8,3 +8,6 @@ odkładana do "gotowców" i możemy z tego korzystać n razy, nie tworząc od no
 
 dekorator - mamy obiekt "podstawowy" i mamy obiekty tej samej klasy (interfejsu)
 ale z dodatkowymi funkcjonalnościami, możliwościami
+
+adapter - potrzebny gdy mamy obiekty na których chcemy wykonać podobną akcję ale one różnią się wartościami (KMH / MPH)
+albo np. potrzebujemy przystosować dane do innego systemu (wartości prądu, waluty, szerokości torów)
