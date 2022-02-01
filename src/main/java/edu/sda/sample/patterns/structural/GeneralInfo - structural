@@ -21,3 +21,6 @@ ma nie korzystać, a wystawić tylko API - metody dedykowane do wykorzystania pr
 Bridge - służy do oddzielania warstwy implementacji od warstwy abstrakcji. Polega to na tym że definiuje się szablony
 (klasy abstrakcyjne i interfejsy) jakiejś funkcjonalności, a następnie implementacja może być powierzona
 kilku niezależnym zespołom
+
+Composite - pozwala na jednakowe traktowanie prostych i złożonych elementów, czyli na wykonywanie tych samych operacji
+na obiektach "małych" i "dużych", gdzie te duże mogą być złożeniem kilku małych i "dużych ale mniejszych" elementów
