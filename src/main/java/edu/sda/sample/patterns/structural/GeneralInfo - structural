@@ -17,3 +17,7 @@ klient ma wywołać 1 metodę do generowania raportu a nie łączyć się z baz�
 bo klient może nawet nie wiedzieć że jest lepsze wyjście ale takie mu po prostu zadziałało,
 dlatego lepiej jest schować za uprawnieniami (private, proteted, package private) to z czego klient
 ma nie korzystać, a wystawić tylko API - metody dedykowane do wykorzystania przez klienta
+
+Bridge - służy do oddzielania warstwy implementacji od warstwy abstrakcji. Polega to na tym że definiuje się szablony
+(klasy abstrakcyjne i interfejsy) jakiejś funkcjonalności, a następnie implementacja może być powierzona
+kilku niezależnym zespołom
