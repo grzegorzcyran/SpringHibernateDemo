@@ -1,2 +1,4 @@
 strategy - kilka różnych algorytmów na realizację tego samego zadania
 wywoływanych naprzemiennie w zależności od kontekstu i potrzeb
+
+observer - system powiadomień i lista obiektów reagujących na te powiadomienia
