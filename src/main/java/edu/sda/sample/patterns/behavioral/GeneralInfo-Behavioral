@@ -6,3 +6,7 @@ observer - system powiadomień i lista obiektów reagujących na te powiadomieni
 command - służy do "nałożenia" dodatkowych funkcjonalności na wykonanie operacji. Te czynności
 to np. kolejkowanie, logowanie, sprawdzanie uprawnień do wykonania operacji. Sama operacja się
 nie zmienia, ale dodatkowo, obok możemy dołożyć sporo funkcji kontrolnych
+
+template method - zdefiniowany, niezmienny wzorzec postępowania (algorytm), gdzie część wzorca jest
+predefiniowana i niezmienna (metody final), a część możliwa (i konieczna) do implementacji dostosowanej
+do wymagań projektowych
