@@ -10,3 +10,7 @@ nie zmienia, ale dodatkowo, obok możemy dołożyć sporo funkcji kontrolnych
 template method - zdefiniowany, niezmienny wzorzec postępowania (algorytm), gdzie część wzorca jest
 predefiniowana i niezmienna (metody final), a część możliwa (i konieczna) do implementacji dostosowanej
 do wymagań projektowych
+
+chain - pozwala na określenie równolegle małych algorytmów sprawdzania / kontroli / wykonania które można w
+różnej kolejności i konfiguracji (wszystkie albo nie wszystkie), (dla jednego więcej, dla innego mniej kroków)
+łączyć i budować łańcuchy wykonania zamiast jednej wielkiej klasy
